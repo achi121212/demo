@@ -65,7 +65,7 @@ public class MyContextListener implements ServletContextListener  {
 	}
 
 	private void refreshContext(ServletContext sc, MyApplicationContext mysc, Class<?> clazz) throws Exception {
-		System.out.println("refreshContext start");
+	    System.out.println("refreshContext start");
 		if (clazz.isAnnotationPresent(MyRestController.class)) {
 			handleController(sc, clazz);
 			handleTransaction(clazz);
@@ -99,8 +99,6 @@ public class MyContextListener implements ServletContextListener  {
 				} 
 			}
 			servletMap.forEach((key, value) -> {
-				System.out.println("key：" + key);
-				System.out.println("value：" + value);
 				ServletRegistration.Dynamic servletDynamic = sc.addServlet(key, new RestServlet(value.getGet(), value.getPost(), value.getPut(), value.getDelete()));
 				servletDynamic.addMapping(key);
 			});
@@ -113,6 +111,7 @@ public class MyContextListener implements ServletContextListener  {
 	 * set裡面放url，方便filter尋找、避免method name重複
 	 */
 	private void handleTransaction(Class<?> clazz) {
+	    System.out.println("handleTransaction start：" + clazz.getName());
 		String classUrl = getClassUrl(clazz);
 		if (clazz.isAnnotationPresent(MyTransaction.class)) {
 			MyApplicationContext.getInstance().getTransactionalClass().add(classUrl);

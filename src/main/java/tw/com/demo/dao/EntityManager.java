@@ -40,10 +40,10 @@ public class EntityManager implements AutoCloseable {
 		try {
 			Class.forName(DB_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PWD);
+	        System.out.println("EntityManager openConnection success");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		} 
-		System.out.println("EntityManager openConnection success");
 		return conn;
 	}
 	
